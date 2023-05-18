@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS */
+.input-box input:focus ~ span {
+  transform: translateX(16px) translateY(-14px);
+  font-size: 14px;
+  padding: 0 10px;
+  color: #587bf1;
+  background-color: #fff;
+  border: 2px solid #587bf1;
+  border-radius: 100%;
+}
+.input-valid {
+  transform: translateX(16px) translateY(-14px);
+  font-size: 14px;
+  padding: 0 10px;
+  /* color: #587bf1; */
+  color: #fff;
+  background-color: #587bf1;
+  border: 2px solid #587bf1;
+  border-radius: 100%;
+}
+.input-focus {
+  border: 2px solid #587bf1;
+}
