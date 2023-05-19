@@ -1,12 +1,23 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const AddToy = () => {
+  const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     // formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    fetch("http://localhost:5000/addToy", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  };
   return (
     <div>
       <form
@@ -55,6 +66,7 @@ const AddToy = () => {
             <input
               className="border rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
+              defaultValue={user?.displayName}
               {...register("sellerName")}
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-gray-600 bg-white">
@@ -65,6 +77,7 @@ const AddToy = () => {
             <input
               className="border rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="email"
+              defaultValue={user?.email}
               {...register("sellerEmail")}
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-gray-600 bg-white">

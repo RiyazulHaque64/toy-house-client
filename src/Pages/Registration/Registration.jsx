@@ -44,7 +44,6 @@ const Registration = () => {
     const photoUrl = form.photoUrl.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(userName, photoUrl, email, password);
 
     if (email && password.length >= 6) {
       createUser(email, password)
