@@ -2,11 +2,40 @@ import { useState } from "react";
 import PageHeader from "../../Component/PageHeader";
 import registrationImg from "../../assets/image/registration-illustration2.png";
 import { TiTick } from "react-icons/ti";
+import { HiXMark } from "react-icons/hi2";
 
 const Registration = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [validPassword, setValidPassword] = useState("");
+
+  const handleEmailValidation = (event) => {
+    if (event.target.value.length) {
+      setEmail(event.target.value);
+      if (/\S+@\S+\.\S+/.test(event.target.value)) {
+        setValidEmail(event.target.value);
+      } else {
+        setValidEmail("");
+      }
+    } else {
+      setEmail("");
+    }
+  };
+
+  const handlePasswordValidation = (event) => {
+    if (event.target.value.length > 0) {
+      setPassword(event.target.value);
+      if (event.target.value.length >= 6) {
+        setValidPassword(event.target.value);
+      } else {
+        setValidPassword("");
+      }
+    } else {
+      setPassword("");
+    }
+  };
   return (
     <div>
       <PageHeader headerTitle="Signup" />
@@ -43,9 +72,7 @@ const Registration = () => {
           </div>
           <div className="input-box relative w-full">
             <input
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
+              onChange={handleEmailValidation}
               className={`w-full px-4 py-4 border-2 border-gray-300 focus:border-[#587bf1] outline-none rounded-xl text-xl duration-500 ${
                 email && "input-focus"
               }`}
@@ -57,14 +84,26 @@ const Registration = () => {
                 email && "input-valid"
               }`}
             >
-              Type your email
+              {email ? (
+                validEmail ? (
+                  <div className="flex items-center gap-1">
+                    <span>Email </span>
+                    <TiTick />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <span className="text-red-500">Email </span>
+                    <HiXMark className="text-red-500" />
+                  </div>
+                )
+              ) : (
+                "Type your email"
+              )}
             </span>
           </div>
           <div className="input-box relative w-full">
             <input
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={handlePasswordValidation}
               className={`w-full px-4 py-4 border-2 border-gray-300 focus:border-[#587bf1] outline-none rounded-xl text-xl duration-500 ${
                 password && "input-focus"
               }`}
@@ -76,7 +115,21 @@ const Registration = () => {
                 password && "input-valid"
               }`}
             >
-              Set a password
+              {password ? (
+                validPassword ? (
+                  <div className="flex items-center gap-1">
+                    <span>Password </span>
+                    <TiTick />
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-1">
+                    <span className="text-red-500">Password </span>
+                    <HiXMark className="text-red-500" />
+                  </div>
+                )
+              ) : (
+                "Set a password"
+              )}
             </span>
           </div>
         </form>
