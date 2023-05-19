@@ -1,4 +1,29 @@
+import { useState } from "react";
+import CreatableSelect from "react-select/creatable";
+
+const options = [
+  { value: "chocolate", label: "Chocolate" },
+  { value: "strawberry", label: "Strawberry" },
+  { value: "vanilla", label: "Vanilla" },
+];
+
+const colourStyles = {
+  control: (styles, state) => ({
+    ...styles,
+    border: state.isFocused ? "1px solid #FA7316" : "1px solid #E5E7EB",
+    // This line disable the blue border
+    boxShadow: state.isFocused ? 0 : 0,
+    "&:hover": {
+      outline: state.isFocused ? "1px solid #FA7316" : "1px solid #E5E7EB",
+    },
+    backgroundColor: "",
+    // border: "1px solid #E5E7EB",
+    padding: "3px 6px",
+  }),
+};
+
 const AddToy = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
   return (
     <div>
       <form className="add-toy-form w-8/12 mx-auto py-20">
@@ -14,11 +39,19 @@ const AddToy = () => {
             </span>
           </div>
           <div className="w-1/2 relative">
-            <input
+            {/* <input
               className="border rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
               name=""
               id=""
+            /> */}
+            <CreatableSelect
+              className=""
+              isMulti
+              defaultValue={selectedOption}
+              onChange={setSelectedOption}
+              options={options}
+              styles={colourStyles}
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-gray-600 bg-white">
               Category
