@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddToy = () => {
   const { user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
+    reset,
     // formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
@@ -16,8 +19,19 @@ const AddToy = () => {
         "content-type": "application/json",
       },
       body: JSON.stringify(data),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          toast.success("Successfully added the toy", {
+            position: "top-center",
+            autoClose: 3000,
+          });
+        }
+      });
+    reset();
   };
+
   return (
     <div>
       <form
@@ -139,9 +153,6 @@ const AddToy = () => {
           </span>
         </div>
         <div className="w-full text-end">
-          <button className="px-8 py-2 border border-orange-500 duration-200 hover:text-orange-600 cursor-pointer rounded font-semibold text-orange-500 mr-4">
-            Reset
-          </button>
           <input
             className="px-8 py-2 bg-orange-500 duration-200 hover:bg-orange-600 cursor-pointer rounded font-semibold text-white"
             type="submit"
@@ -149,6 +160,7 @@ const AddToy = () => {
           />
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
