@@ -1,67 +1,52 @@
 import { useContext, useState } from "react";
 import PageHeader from "../../Component/PageHeader";
-import registrationImg from "../../assets/image/registration-illustration2.png";
+import loginImg from "../../assets/image/login-illustration.jpg";
 import googleIcon from "../../assets/image/google_icon.png";
 import { TiTick } from "react-icons/ti";
 import { HiXMark } from "react-icons/hi2";
 import { BiError } from "react-icons/bi";
 import { HiOutlineXMark } from "react-icons/hi2";
 import { BsEyeFill } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const Registration = () => {
-  const [name, setName] = useState("");
+const Login = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validPassword, setValidPassword] = useState("");
-  const [url, setUrl] = useState("");
-  const [validUrl, setValidUrl] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const { createUser, updateUser, setUserProfile, signinWithGoogle } =
-    useContext(AuthContext);
-  const navigate = useNavigate();
 
-  // Google signin method
+  const { signinWithGoogle, loginUser, setUserProfile } =
+    useContext(AuthContext);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const navigate = useNavigate();
   const handleGoogleSignin = () => {
     signinWithGoogle()
       .then(() => {
         setUserProfile(false);
-        navigate("/", { replace: true });
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         setError(error.message);
       });
   };
 
-  // Create user method
-  const handleCreateUser = (event) => {
+  const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
-    const userName = form.userName.value;
-    const photoUrl = form.photoUrl.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(userName, photoUrl, email, password);
-
-    if (email && password.length >= 6) {
-      createUser(email, password)
-        .then((res) => {
-          const user = res.user;
-          updateUser(user, { userName, photoUrl }).then(() => {
-            setUserProfile(false);
-          });
-          navigate("/");
-        })
-        .catch((error) => {
-          setError(error.message);
-        });
-      form.reset();
-    } else {
-      setError("Your password must have at least 6 character!!!");
-    }
+    loginUser(email, password)
+      .then(() => {
+        form.reset();
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   // Email field validation
@@ -92,30 +77,13 @@ const Registration = () => {
     }
   };
 
-  // URL Field validation
-  const handleUrlValidation = (event) => {
-    if (event.target.value.length) {
-      setUrl(event.target.value);
-      if (/(https?:\/\/.*\.(?:png|jpg|jpeg|gif))/i.test(event.target.value)) {
-        setValidUrl(event.target.value);
-      } else {
-        setValidUrl("");
-      }
-    } else {
-      setUrl("");
-    }
-  };
-
   return (
     <div>
-      <PageHeader headerTitle="Signup" />
+      <PageHeader headerTitle="Login" />
       <div className="flex flex-col lg:flex-row items-center justify-between w-10/12 mx-auto py-24 gap-20">
-        <div className="w-full lg:w-1/2">
-          <img src={registrationImg} alt="" />
-        </div>
         <div className="w-full lg:w-1/2 border p-8 md:p-10 lg:p-14 text-center space-y-7 rounded-lg">
           <h2 className="text-3xl font-semibold text-orange-500 text-center mb-12">
-            Create an Account
+            Login your Account
           </h2>
           {error && (
             <div className="text-xl text-red-600 bg-red-50 border border-red-200 flex items-center justify-between shadow p-6 rounded-lg">
@@ -129,33 +97,7 @@ const Registration = () => {
               />
             </div>
           )}
-          <form onSubmit={handleCreateUser} className="flex flex-col gap-5">
-            <div className="input-box relative w-full">
-              <input
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                className={`w-full px-4 py-4 border border-gray-300 focus:border-[#587bf1] outline-none rounded-xl text-lg duration-500 ${
-                  name && "input-focus"
-                }`}
-                type="text"
-                name="userName"
-              />
-              <span
-                className={`translate-y-1 absolute left-0 ml-1 px-4 py-3 text-lg pointer-events-none duration-500 text-gray-500 ${
-                  name ? "bg-[#587bf1] input-valid" : "bg-white"
-                }`}
-              >
-                {name ? (
-                  <div className="flex items-center gap-1">
-                    <span>Name </span>
-                    <TiTick />
-                  </div>
-                ) : (
-                  "Type your name"
-                )}
-              </span>
-            </div>
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
             <div className="input-box relative w-full">
               <input
                 onChange={handleEmailValidation}
@@ -225,37 +167,6 @@ const Registration = () => {
                 )}
               </span>
             </div>
-            <div className="input-box relative w-full">
-              <input
-                onChange={handleUrlValidation}
-                className={`w-full px-4 py-4 border border-gray-300 focus:border-[#587bf1] outline-none rounded-xl text-lg duration-500 ${
-                  url && "input-focus"
-                }`}
-                type="url"
-                name="photoUrl"
-              />
-              <span
-                className={`translate-y-1 absolute left-0 ml-1 px-4 py-3 text-lg pointer-events-none duration-500 text-gray-500 ${
-                  url && "input-valid"
-                } ${validUrl ? "bg-[#587bf1]" : "bg-white"}`}
-              >
-                {url ? (
-                  validUrl ? (
-                    <div className="flex items-center gap-1">
-                      <span>Photo URL </span>
-                      <TiTick />
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-1">
-                      <span className="text-red-500">Photo URL </span>
-                      <HiXMark className="text-red-500" />
-                    </div>
-                  )
-                ) : (
-                  "Paste your photo URL"
-                )}
-              </span>
-            </div>
             <div className="w-full">
               <input
                 className="w-full bg-[#587bf1] duration-200 hover:bg-blue-600 py-3 cursor-pointer rounded-xl text-white font-semibold text-xl"
@@ -265,9 +176,9 @@ const Registration = () => {
             </div>
           </form>
           <p>
-            Already have an account? Please{" "}
-            <Link className="text-orange-600 hover:underline" to="/login">
-              login
+            Not registered yet?{" "}
+            <Link className="text-orange-600 hover:underline" to="/signup">
+              Create an Account
             </Link>
           </p>
           <div className="text-center">
@@ -283,9 +194,12 @@ const Registration = () => {
             <span>Signup with google</span>
           </button>
         </div>
+        <div className="w-full lg:w-1/2">
+          <img src={loginImg} alt="" />
+        </div>
       </div>
     </div>
   );
 };
 
-export default Registration;
+export default Login;

@@ -9,7 +9,7 @@
   padding: 0 10px;
   color: #587bf1;
   background-color: #fff;
-  border: 2px solid #587bf1;
+  border: 1px solid #587bf1;
   border-radius: 100%;
 }
 .input-valid {
@@ -18,10 +18,14 @@
   padding: 0 10px;
   /* color: #587bf1; */
   color: #fff;
-  background-color: #587bf1;
-  border: 2px solid #587bf1;
+  /* background-color: #587bf1; */
+  border: 1px solid #587bf1;
   border-radius: 100%;
 }
 .input-focus {
-  border: 2px solid #587bf1;
+  border: 1px solid #587bf1;
+}
+
+.add-toy-form input:focus ~ span {
+  @apply text-orange-500 font-semibold;
 }
