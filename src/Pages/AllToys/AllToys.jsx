@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
 
 const AllToys = () => {
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState("Electric");
   const [allToys, setAllToys] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/allToys", {
@@ -16,6 +16,17 @@ const AllToys = () => {
       .then((res) => res.json())
       .then((data) => setAllToys(data));
   }, []);
+
+  const searchHandler = () => {
+    fetch(`http://localhost:5000/searchByName/${searchText}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setAllToys(data));
+  };
   return (
     <div>
       <div className="w-10/12 flex justify-center mx-auto pt-20 mb-10">
@@ -26,9 +37,11 @@ const AllToys = () => {
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search toy"
           />
-          <BiSearch className="absolute top-1/2 transform -translate-y-3 text-gray-500 hover:text-blue-700 duration-200 cursor-pointer right-2 w-6 h-6" />
+          <BiSearch
+            onClick={searchHandler}
+            className="absolute top-1/2 transform -translate-y-3 text-gray-500 hover:text-blue-700 duration-200 cursor-pointer right-2 w-6 h-6"
+          />
         </div>
-        <p>{searchText}</p>
       </div>
       <div className="w-8/12 mx-auto pb-20">
         <table className="border w-full">
