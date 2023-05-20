@@ -12,7 +12,6 @@ const ViewDetails = () => {
     rating,
     description,
   } = toyDetails;
-  console.log(toyDetails);
   return (
     <div>
       <div className="flex w-10/12 mx-auto gap-6 items-center border my-20">
