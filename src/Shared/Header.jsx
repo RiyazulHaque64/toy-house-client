@@ -26,7 +26,7 @@ const Header = () => {
             <NavLink to="/allToys">All Toys</NavLink>
           </li>
           <li className="text-lg font-semibold duration-200 hover:text-orange-500 text-gray-600 border-l px-4">
-            <NavLink to="/myToys">My Toys</NavLink>
+            <NavLink to="myToys">My Toys</NavLink>
           </li>
           <li className="text-lg font-semibold duration-200 hover:text-orange-500 text-gray-600 border-l px-4">
             <NavLink to="/addToy">Add Toy</NavLink>
@@ -58,7 +58,7 @@ const Header = () => {
           </>
         ) : (
           <NavLink to="/login">
-            <li className="font-semibold duration-200 bg-orange-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-orange-600 duration-200">
+            <li className="font-semibold duration-200 bg-orange-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-orange-600">
               Login
             </li>
           </NavLink>
