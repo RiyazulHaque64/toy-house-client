@@ -3,9 +3,8 @@ import { FiEdit } from "react-icons/fi";
 import { RiDeleteBinFill } from "react-icons/ri";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useForm } from "react-hook-form";
 
 const MyToys = () => {
   const { user } = useContext(AuthContext);
@@ -49,31 +48,51 @@ const MyToys = () => {
     });
   };
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-    fetch("http://localhost:5000/addToy", {
-      method: "POST",
+  const handleUpdatedData = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const _id = form.id.value;
+    const toyTitle = form.title.value;
+    const category = form.category.value;
+    const sellerName = form.seller.value;
+    const sellerEmail = form.email.value;
+    const price = form.price.value;
+    const quantity = form.quantity.value;
+    const rating = form.rating.value;
+    const photoUrl = form.picUrl.value;
+    const description = form.description.value;
+    const updatedToyInfo = {
+      _id,
+      toyTitle,
+      category,
+      sellerEmail,
+      sellerName,
+      price,
+      quantity,
+      rating,
+      photoUrl,
+      description,
+    };
+    fetch(`http://localhost:5000/updateToy/${_id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(updatedToyInfo),
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          toast.success("Successfully added the toy", {
-            position: "top-center",
-            autoClose: 3000,
+      .then((result) => {
+        if (result.modifiedCount > 0) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
           });
         }
       });
-    reset();
+    console.log(updatedToyInfo);
   };
   return (
     <div>
@@ -138,20 +157,27 @@ const MyToys = () => {
         </table>
       </div>
 
+      {/* Update toy modal */}
       <input type="checkbox" id="updateModal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box p-0 w-10/12 max-w-5xl">
           <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="add-toy-form p-10 mx-auto"
+            onSubmit={handleUpdatedData}
+            className="add-toy-form mx-auto p-10"
           >
             <div className="flex gap-8 mb-6">
               <div className="w-1/2 relative">
                 <input
+                  className="hidden"
+                  type="text"
+                  defaultValue={toyInfo._id}
+                  name="id"
+                />
+                <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
                   defaultValue={toyInfo?.toyTitle}
-                  {...register("toyTitle")}
+                  name="title"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Toy Title
@@ -161,7 +187,7 @@ const MyToys = () => {
                 <select
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500 pr-20"
                   type="text"
-                  {...register("category")}
+                  name="category"
                 >
                   <option value={toyInfo?.category}>{toyInfo?.category}</option>
                   <option value="Teddy Bear">Teddy Bear</option>
@@ -180,7 +206,7 @@ const MyToys = () => {
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
                   defaultValue={user?.displayName}
-                  {...register("sellerName")}
+                  name="seller"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Seller Name
@@ -191,7 +217,7 @@ const MyToys = () => {
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="email"
                   defaultValue={user?.email}
-                  {...register("sellerEmail")}
+                  name="email"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Seller Email
@@ -203,8 +229,8 @@ const MyToys = () => {
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
-                  defaultValue={toyInfo.price}
-                  {...register("price")}
+                  defaultValue={toyInfo?.price}
+                  name="price"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Price
@@ -214,8 +240,8 @@ const MyToys = () => {
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
-                  defaultValue={toyInfo.quantity}
-                  {...register("quantity")}
+                  defaultValue={toyInfo?.quantity}
+                  name="quantity"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Quantity
@@ -225,8 +251,8 @@ const MyToys = () => {
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
-                  defaultValue={toyInfo.rating}
-                  {...register("rating")}
+                  defaultValue={toyInfo?.rating}
+                  name="rating"
                 />
                 <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                   Rating
@@ -237,8 +263,8 @@ const MyToys = () => {
               <input
                 className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                 type="text"
-                defaultValue={toyInfo.photoUrl}
-                {...register("photoUrl")}
+                defaultValue={toyInfo?.photoUrl}
+                name="picUrl"
               />
               <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
                 Picture URL
@@ -247,10 +273,10 @@ const MyToys = () => {
             <div className="w-full relative mb-6">
               <textarea
                 className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
-                {...register("description")}
-                defaultValue={toyInfo.description}
+                defaultValue={toyInfo?.description}
                 cols="30"
-                rows="10"
+                rows="6"
+                name="description"
               ></textarea>
               <span className="absolute top-0 transform -translate-y-3 -z-0 left-6 px-2 text-blue-600 bg-white">
                 Toy Description
@@ -265,17 +291,14 @@ const MyToys = () => {
                   Close
                 </label>
               </div>
-              <div className="modal-action mt-0">
-                <label htmlFor="updateModal">
-                  <input
-                    className="px-8 py-2 bg-blue-500 duration-200 hover:bg-blue-600 cursor-pointer rounded font-semibold text-white"
-                    type="submit"
-                    value="Update"
-                  />
-                </label>
-              </div>
+              <input
+                className="px-8 py-2 bg-blue-500 duration-200 hover:bg-blue-600 cursor-pointer rounded font-semibold text-white"
+                type="submit"
+                value="Update"
+              />
             </div>
           </form>
+
           <ToastContainer />
         </div>
       </div>

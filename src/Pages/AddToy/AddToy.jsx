@@ -25,7 +25,7 @@ const AddToy = () => {
         if (data.insertedId) {
           toast.success("Successfully added the toy", {
             position: "top-center",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
       });
