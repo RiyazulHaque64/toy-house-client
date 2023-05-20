@@ -10,6 +10,7 @@ const MyToys = () => {
   const { user } = useContext(AuthContext);
   const [myToys, setMyToys] = useState([]);
   const [toyInfo, setToyInfo] = useState({});
+  const [update, setUpdate] = useState(false);
   const url = `http://localhost:5000/myToys?seller=${user.email}`;
   useEffect(() => {
     fetch(url, {
@@ -20,9 +21,56 @@ const MyToys = () => {
     })
       .then((res) => res.json())
       .then((data) => setMyToys(data));
-  }, [url]);
+  }, [url, update]);
 
   const handleToyDelete = (_id) => {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons;
+    // .fire({
+    //   title: "Are you sure?",
+    //   text: "You want to delete this!",
+    //   icon: "warning",
+    //   showCancelButton: true,
+    //   confirmButtonText: "Yes, delete it!",
+    //   cancelButtonText: "No, cancel!",
+    //   reverseButtons: true,
+    // })
+    // .then((result) => {
+    //   if (result.isConfirmed) {
+    //     fetch(`http://localhost:5000/deleteToy/${_id}`, {
+    //       method: "DELETE",
+    //     })
+    //       .then((res) => res.json())
+    //       .then((result) => {
+    //         if (result.deletedCount > 0) {
+    //           const remaining = myToys.filter((myToy) => myToy._id !== _id);
+    //           setMyToys(remaining);
+    //         }
+    //       });
+    //     swalWithBootstrapButtons.fire(
+    //       "Deleted!",
+    //       "The toy has been deleted.",
+    //       "success"
+    //     );
+    //   } else if (
+    //     /* Read more about handling dismissals below */
+    //     result.dismiss === Swal.DismissReason.cancel
+    //   ) {
+    //     swalWithBootstrapButtons.fire(
+    //       "Cancelled",
+    //       "The toy is safe :)",
+    //       "error"
+    //     );
+    //   }
+    // });
+
     Swal.fire({
       title: "Are you sure?",
       text: "You want to delete this!",
@@ -39,8 +87,7 @@ const MyToys = () => {
           .then((res) => res.json())
           .then((result) => {
             if (result.deletedCount > 0) {
-              const remaining = myToys.filter((myToy) => myToy._id !== _id);
-              setMyToys(remaining);
+              setUpdate(!update);
             }
           });
         Swal.fire("Deleted!", "The toy has been deleted.", "success");
@@ -82,11 +129,21 @@ const MyToys = () => {
     })
       .then((res) => res.json())
       .then((result) => {
+        console.log(result);
         if (result.modifiedCount > 0) {
+          setUpdate(!update);
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "info",
+            title: "Nothing has been updated!",
             showConfirmButton: false,
             timer: 1500,
           });
