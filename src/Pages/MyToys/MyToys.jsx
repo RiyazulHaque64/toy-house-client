@@ -116,7 +116,9 @@ const MyToys = () => {
   };
 
   const handleSort = (condition) => {
-    fetch(`https://toy-house-server-khaki.vercel.app/sort/${condition}`)
+    fetch(
+      `https://toy-house-server-khaki.vercel.app/sort/${condition}?seller=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => setMyToys(data));
   };

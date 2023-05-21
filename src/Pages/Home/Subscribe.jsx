@@ -4,7 +4,7 @@ import { BsFillEnvelopePaperHeartFill, BsSendFill } from "react-icons/bs";
 const Subscribe = () => {
   return (
     <div
-      className="mt-20 flex flex-col md:flex-row p-12 bg-orange-100 items-center"
+      className="mt-20 flex flex-col justify-center md:flex-row p-12 bg-orange-100 items-center"
       data-aos="flip-down"
       data-aos-easing="ease-out-cubic"
       data-aos-duration="2000"
