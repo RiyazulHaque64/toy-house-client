@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "question": "What is the differences between uncontrolled and controlled components?",
+    "answer": "When dealing with form data in React, we can use either controlled components or uncontrolled components. when we use controlled component, it is handled by React. On the other hand, when we use uncontrolled component, it is handled by browser DOM. Controlled component help us to validate strongly, specifically and easily. Which is not possible uncontrolled component."
+  },
+  {
+    "id": 2,
+    "question": "How to validate React props using PropTypes?",
+    "answer": "First of all we install the prop-types library, run the command: npm i prop-types. Then we import it in the component from the 'prop-types' module. For validation, 1. PropTypes.any : The prop can be of any data type. 2. PropTypes.bool : The prop should be a Boolean. 3. PropTypes.number : The prop should be a number. 4. PropTypes.string : The prop should be a string. 5. PropTypes.func : The prop should be a function. 6. PropTypes.array : The prop should be an array."
+  },
+  {
+    "id": 3,
+    "question": "What is the difference between nodejs and express js?",
+    "answer": "NodeJS is open-source, cross-platform JavaScript code that runs on servers. It uses an asynchronous event-driven model and is designed to build scalable network applications. It’s built on Google Chrome’s V8 engine. On the other hand, ExpressJS is a web application framework for NodeJS. The former provides various features that make web application development fast and easy, which otherwise takes more time using only the latter. It provides a robust set of features for web and mobile applications."
+  },
+  {
+    "id": 4,
+    "question": "What is a custom hook, and why will you create a custom hook?",
+    "answer": "Custom Hook is a JavaScript function which we create by ourselves, when we want to share logic between other JavaScript functions. It allows us to reuse some piece of code in several parts of our app. We use custom hook, because, it can be reused easily, which makes the code cleaner and reduces the time to write the code."
+  }
+]

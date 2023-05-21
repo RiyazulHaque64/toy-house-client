@@ -15,7 +15,7 @@ const ToyCard = ({ toy }) => {
   } = toy;
   return (
     <div className="border p-6 space-y-4 flex flex-col">
-      <img className="lg:h-80 2xl:h-[500px]" src={photoUrl} alt="" />
+      <img className="lg:h-80 2xl:h-96" src={photoUrl} alt="" />
       <div className="space-y-2 grow">
         <h2 className="font-semibold text-2xl text-gray-800">{toyTitle}</h2>
         <div className="flex gap-5">
