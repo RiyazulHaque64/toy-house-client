@@ -3,7 +3,6 @@ import ToyCard from "./ToyCard";
 const ShopByCategory = () => {
   const [categoryToys, setCategoryToys] = useState([]);
   const [activeCategory, setActiveCategory] = useState("Teddy Bear");
-  console.log(categoryToys);
   useEffect(() => {
     fetch(
       `https://toy-house-server-khaki.vercel.app/allToys/${activeCategory}`,

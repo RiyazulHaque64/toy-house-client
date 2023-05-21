@@ -92,7 +92,6 @@ const MyToys = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.modifiedCount > 0) {
           setUpdate(!update);
           Swal.fire({
@@ -112,7 +111,6 @@ const MyToys = () => {
           });
         }
       });
-    console.log(updatedToyInfo);
   };
 
   const handleSort = (condition) => {

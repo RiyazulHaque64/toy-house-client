@@ -85,7 +85,7 @@ const Header = () => {
       {/* Mobile menu */}
       <nav
         className={`md:hidden duration-500 absolute top-16 mt-1 bg-white z-50 w-48 h-screen ${
-          openMenu ? "right-0" : "-right-96"
+          openMenu ? "block" : "hidden"
         } py-6`}
       >
         <ul className="flex flex-col gap-4 items-center">
