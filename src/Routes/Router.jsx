@@ -8,6 +8,7 @@ import PrivateRoute from "../Routes/PrivateRoute";
 import MyToys from "../Pages/MyToys/MyToys";
 import AllToys from "../Pages/AllToys/AllToys";
 import ViewDetails from "../Pages/ViewDetails/ViewDetails";
+import Blogs from "../Pages/Blogs/Blogs";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`https://toy-house-server-khaki.vercel.app/toy/${params.id}`),
+      },
+      {
+        path: "blog",
+        element: <Blogs />,
       },
     ],
   },

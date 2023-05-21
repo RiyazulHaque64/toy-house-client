@@ -1,22 +1,22 @@
 [
   {
     "id": 1,
-    "question": "What is the differences between uncontrolled and controlled components?",
-    "answer": "When dealing with form data in React, we can use either controlled components or uncontrolled components. when we use controlled component, it is handled by React. On the other hand, when we use uncontrolled component, it is handled by browser DOM. Controlled component help us to validate strongly, specifically and easily. Which is not possible uncontrolled component."
+    "question": "What is an access token and refresh token? How do they work and where should we store them on the client-side?",
+    "answer": "Access Token: An access token is a string representing an authorization issued to the client. Tokens represent specific scopes and duration of access, granted by the resource owner, and enforced by the resource server and authorization server. Refresh Token: A refresh token is issued (along with access token) to the client by the authorization server. And we can store the access token and refresh token in the server-side session."
   },
   {
     "id": 2,
-    "question": "How to validate React props using PropTypes?",
-    "answer": "First of all we install the prop-types library, run the command: npm i prop-types. Then we import it in the component from the 'prop-types' module. For validation, 1. PropTypes.any : The prop can be of any data type. 2. PropTypes.bool : The prop should be a Boolean. 3. PropTypes.number : The prop should be a number. 4. PropTypes.string : The prop should be a string. 5. PropTypes.func : The prop should be a function. 6. PropTypes.array : The prop should be an array."
+    "question": "Compare SQL and NoSQL databases?",
+    "answer": "An SQL database—also known as a relational database—and named for the programming language it’s written in, Structured Query Language (SQL). It’s the more rigid, structured way of storing data. A relational database management system (RDBMS) executes queries, retrieves data, and edits data by updating, deleting, or creating new records. On the other hand, NoSQL databases--also known as “non SQL” or “not only SQL,” store data in a format other than relational tables."
   },
   {
     "id": 3,
-    "question": "What is the difference between nodejs and express js?",
-    "answer": "NodeJS is open-source, cross-platform JavaScript code that runs on servers. It uses an asynchronous event-driven model and is designed to build scalable network applications. It’s built on Google Chrome’s V8 engine. On the other hand, ExpressJS is a web application framework for NodeJS. The former provides various features that make web application development fast and easy, which otherwise takes more time using only the latter. It provides a robust set of features for web and mobile applications."
+    "question": "What is express js and What is Nest JS?",
+    "answer": "Express JS: Express js is a free and open-source web application framework. It makes it easier to organize your application’s functionality with middleware and routing. It adds helpful utilities to Node.js HTTP objects and facilitates the rendering of dynamic HTTP objects. Next JS: NestJS is a open-source, back-end framework for Node.js and TypeScript-based, server-side applications. It is intended to provide a solid foundation for developing server-side applications by leveraging well-known patterns and the best practices from other frameworks."
   },
   {
     "id": 4,
-    "question": "What is a custom hook, and why will you create a custom hook?",
+    "question": "What is MongoDB aggregate and how does it work?",
     "answer": "Custom Hook is a JavaScript function which we create by ourselves, when we want to share logic between other JavaScript functions. It allows us to reuse some piece of code in several parts of our app. We use custom hook, because, it can be reused easily, which makes the code cleaner and reduces the time to write the code."
   }
 ]
