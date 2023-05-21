@@ -14,7 +14,12 @@ const Header = () => {
   };
   return (
     <div>
-      <div className="w-10/12 mx-auto flex items-center justify-between py-4">
+      <div
+        className="w-10/12 mx-auto flex items-center justify-between py-4"
+        data-aos="fade-down"
+        data-aos-easing="ease-out-cubic"
+        data-aos-duration="100"
+      >
         {/* logo */}
         <div>
           <img className="w-auto h-10 md:h-16 lg:h-20" src={logo} alt="" />

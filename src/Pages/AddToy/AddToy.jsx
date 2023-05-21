@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProvider";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import PageHeader from "../../Component/PageHeader";
 
 const AddToy = () => {
   const { user } = useContext(AuthContext);
@@ -55,12 +56,13 @@ const AddToy = () => {
   };
   return (
     <div>
+      <PageHeader headerTitle="Add a Toy" />
       <form
         onSubmit={handleUpdatedData}
-        className="add-toy-form w-8/12 mx-auto py-20"
+        className="add-toy-form w-10/12 md:w-8/12 mx-auto py-14 lg:py-20"
       >
-        <div className="flex gap-8 mb-6">
-          <div className="w-1/2 relative">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
@@ -71,7 +73,7 @@ const AddToy = () => {
               Toy Title
             </span>
           </div>
-          <div className="w-1/2 relative">
+          <div className="w-full md:w-1/2  relative">
             <select
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500 pr-20"
               type="text"
@@ -88,8 +90,8 @@ const AddToy = () => {
             </span>
           </div>
         </div>
-        <div className="flex gap-8 mb-6">
-          <div className="w-1/2 relative">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
@@ -100,7 +102,7 @@ const AddToy = () => {
               Seller Name
             </span>
           </div>
-          <div className="w-1/2 relative">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="email"
@@ -112,8 +114,8 @@ const AddToy = () => {
             </span>
           </div>
         </div>
-        <div className="flex gap-10 mb-6">
-          <div className="w-1/2 relative">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
@@ -124,7 +126,7 @@ const AddToy = () => {
               Price
             </span>
           </div>
-          <div className="w-1/2 relative">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
@@ -134,7 +136,7 @@ const AddToy = () => {
               Quantity
             </span>
           </div>
-          <div className="w-1/2 relative">
+          <div className="w-full md:w-1/2  relative">
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"

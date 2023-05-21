@@ -62,7 +62,7 @@ const AllToys = () => {
               <th className="border p-1 text-[12px] md:text-base md:p-2">
                 Seller
               </th>
-              <th className="border hidden md:block p-1 text-sm md:text-base md:p-2">
+              <th className="border p-1 text-sm md:text-base md:p-2">
                 Category
               </th>
               <th className="border p-1 text-sm md:text-base md:p-2">Price</th>
@@ -87,20 +87,22 @@ const AllToys = () => {
                     alt=""
                   />
                 </td>
-                <td className="p-1 text-[10px] md:p-2 text-gray-700">
+                <td className="p-1 text-[10px] md:text-base md:p-2 text-gray-700">
                   {toy.toyTitle}
                 </td>
-                <td className="p-1 text-[10px] md:p-2">{toy.sellerName}</td>
-                <td className="p-1 text-[10px] hidden md:block md:p-2 text-center text-gray-700">
-                  {toy.category}
+                <td className="p-1 text-[10px] md:text-base md:p-2">
+                  {toy.sellerName}
                 </td>
-                <td className="p-1 text-[10px] md:p-2 text-center text-gray-700">
+                <td className="p-1 text-[10px] md:text-base md:p-2 text-center text-gray-700">
+                  <span>{toy.category}</span>
+                </td>
+                <td className="p-1 text-[10px] md:text-base md:p-2 text-center text-gray-700">
                   ${toy.price}
                 </td>
-                <td className="p-1 text-[10px] md:p-2 text-center text-gray-700">
+                <td className="p-1 text-[10px] md:text-base md:p-2 text-center text-gray-700">
                   {toy.quantity}
                 </td>
-                <td className="p-1 text-[10px] md:p-2 text-center text-gray-600">
+                <td className="p-1 text-[10px] md:text-base md:p-2 text-center text-gray-600">
                   <Link to={`/viewDetails/${toy._id}`}>
                     <FaEye
                       className="w-4 md:w-6 h-4 md:h-6 mx-auto cursor-pointer duration-200 hover:text-blue-500"

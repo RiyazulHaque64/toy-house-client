@@ -80,9 +80,9 @@ const Login = () => {
   return (
     <div>
       <PageHeader headerTitle="Login" />
-      <div className="flex flex-col lg:flex-row items-center justify-between w-10/12 mx-auto py-24 gap-20">
+      <div className="flex flex-col-reverse lg:flex-row items-center justify-between w-10/12 mx-auto lg:py-24 py-16 gap-20">
         <div className="w-full lg:w-1/2 border p-8 md:p-10 lg:p-14 text-center space-y-7 rounded-lg">
-          <h2 className="text-3xl font-semibold text-orange-500 text-center mb-12">
+          <h2 className="text-2xl lg:text-3xl font-semibold text-orange-500 text-center mb-12">
             Login your Account
           </h2>
           {error && (

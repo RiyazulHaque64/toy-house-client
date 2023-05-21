@@ -220,8 +220,8 @@ const MyToys = () => {
             onSubmit={handleUpdatedData}
             className="add-toy-form mx-auto p-10"
           >
-            <div className="flex gap-8 mb-6">
-              <div className="w-1/2 relative">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="hidden"
                   type="text"
@@ -238,7 +238,7 @@ const MyToys = () => {
                   Toy Title
                 </span>
               </div>
-              <div className="w-1/2 relative">
+              <div className="w-full md:w-1/2 relative">
                 <select
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500 pr-20"
                   type="text"
@@ -255,8 +255,8 @@ const MyToys = () => {
                 </span>
               </div>
             </div>
-            <div className="flex gap-8 mb-6">
-              <div className="w-1/2 relative">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
@@ -267,7 +267,7 @@ const MyToys = () => {
                   Seller Name
                 </span>
               </div>
-              <div className="w-1/2 relative">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="email"
@@ -279,8 +279,8 @@ const MyToys = () => {
                 </span>
               </div>
             </div>
-            <div className="flex gap-10 mb-6">
-              <div className="w-1/2 relative">
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 mb-6">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
@@ -291,7 +291,7 @@ const MyToys = () => {
                   Price
                 </span>
               </div>
-              <div className="w-1/2 relative">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
@@ -302,7 +302,7 @@ const MyToys = () => {
                   Quantity
                 </span>
               </div>
-              <div className="w-1/2 relative">
+              <div className="w-full md:w-1/2 relative">
                 <input
                   className="border-2 border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
                   type="text"
