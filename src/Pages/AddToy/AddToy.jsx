@@ -1,41 +1,62 @@
 import { useContext } from "react";
-import { useForm } from "react-hook-form";
+// import { useForm } from "react-hook-form";
 import { AuthContext } from "../../providers/AuthProvider";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 const AddToy = () => {
   const { user } = useContext(AuthContext);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    // formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    fetch("http://localhost:5000/addToy", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          toast.success("Successfully added the toy", {
-            position: "top-center",
-            autoClose: 2000,
-          });
-        }
-      });
-    reset();
-  };
 
+  const handleUpdatedData = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const toyTitle = form.title.value;
+    const category = form.category.value;
+    const sellerName = form.seller.value;
+    const sellerEmail = form.email.value;
+    const price = parseInt(form.price.value);
+    const quantity = form.quantity.value;
+    const rating = form.rating.value;
+    const photoUrl = form.picUrl.value;
+    const description = form.description.value;
+    const toyInfo = {
+      toyTitle,
+      category,
+      sellerEmail,
+      sellerName,
+      price,
+      quantity,
+      rating,
+      photoUrl,
+      description,
+    };
+    if (toyTitle && price) {
+      fetch("https://toy-house-server-khaki.vercel.app/addToy", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(toyInfo),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.insertedId) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "You have successfully added a toy",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+    }
+    form.reset();
+  };
   return (
     <div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleUpdatedData}
         className="add-toy-form w-8/12 mx-auto py-20"
       >
         <div className="flex gap-8 mb-6">
@@ -43,7 +64,8 @@ const AddToy = () => {
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
-              {...register("toyTitle")}
+              name="title"
+              required
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Toy Title
@@ -53,7 +75,7 @@ const AddToy = () => {
             <select
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500 pr-20"
               type="text"
-              {...register("category")}
+              name="category"
             >
               <option value="No Category">Select a category</option>
               <option value="Teddy Bear">Teddy Bear</option>
@@ -72,7 +94,7 @@ const AddToy = () => {
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
               defaultValue={user?.displayName}
-              {...register("sellerName")}
+              name="seller"
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Seller Name
@@ -83,7 +105,7 @@ const AddToy = () => {
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="email"
               defaultValue={user?.email}
-              {...register("sellerEmail")}
+              name="email"
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Seller Email
@@ -95,7 +117,8 @@ const AddToy = () => {
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
-              {...register("price")}
+              name="price"
+              required
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Price
@@ -105,7 +128,7 @@ const AddToy = () => {
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
-              {...register("quantity")}
+              name="quantity"
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Quantity
@@ -115,7 +138,7 @@ const AddToy = () => {
             <input
               className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
               type="text"
-              {...register("rating")}
+              name="rating"
             />
             <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
               Rating
@@ -126,7 +149,7 @@ const AddToy = () => {
           <input
             className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
             type="text"
-            {...register("photoUrl")}
+            name="picUrl"
           />
           <span className="absolute -top-1/2 transform translate-y-2 -z-0 left-6 px-2 text-blue-600 bg-white">
             Picture URL
@@ -135,7 +158,7 @@ const AddToy = () => {
         <div className="w-full relative mb-6">
           <textarea
             className="border border-blue-500 rounded w-full px-4 py-2 z-50 focus:outline-orange-500"
-            {...register("description")}
+            name="description"
             cols="30"
             rows="10"
           ></textarea>
@@ -151,7 +174,6 @@ const AddToy = () => {
           />
         </div>
       </form>
-      <ToastContainer />
     </div>
   );
 };

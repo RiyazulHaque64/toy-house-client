@@ -11,7 +11,7 @@ const MyToys = () => {
   const [myToys, setMyToys] = useState([]);
   const [toyInfo, setToyInfo] = useState({});
   const [update, setUpdate] = useState(false);
-  const url = `http://localhost:5000/myToys?seller=${user.email}`;
+  const url = `https://toy-house-server-khaki.vercel.app/myToys?seller=${user.email}`;
   useEffect(() => {
     fetch(url, {
       method: "GET",
@@ -33,43 +33,6 @@ const MyToys = () => {
     });
 
     swalWithBootstrapButtons;
-    // .fire({
-    //   title: "Are you sure?",
-    //   text: "You want to delete this!",
-    //   icon: "warning",
-    //   showCancelButton: true,
-    //   confirmButtonText: "Yes, delete it!",
-    //   cancelButtonText: "No, cancel!",
-    //   reverseButtons: true,
-    // })
-    // .then((result) => {
-    //   if (result.isConfirmed) {
-    //     fetch(`http://localhost:5000/deleteToy/${_id}`, {
-    //       method: "DELETE",
-    //     })
-    //       .then((res) => res.json())
-    //       .then((result) => {
-    //         if (result.deletedCount > 0) {
-    //           const remaining = myToys.filter((myToy) => myToy._id !== _id);
-    //           setMyToys(remaining);
-    //         }
-    //       });
-    //     swalWithBootstrapButtons.fire(
-    //       "Deleted!",
-    //       "The toy has been deleted.",
-    //       "success"
-    //     );
-    //   } else if (
-    //     /* Read more about handling dismissals below */
-    //     result.dismiss === Swal.DismissReason.cancel
-    //   ) {
-    //     swalWithBootstrapButtons.fire(
-    //       "Cancelled",
-    //       "The toy is safe :)",
-    //       "error"
-    //     );
-    //   }
-    // });
 
     Swal.fire({
       title: "Are you sure?",
@@ -81,7 +44,7 @@ const MyToys = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/deleteToy/${_id}`, {
+        fetch(`https://toy-house-server-khaki.vercel.app/deleteToy/${_id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -120,7 +83,7 @@ const MyToys = () => {
       photoUrl,
       description,
     };
-    fetch(`http://localhost:5000/updateToy/${_id}`, {
+    fetch(`https://toy-house-server-khaki.vercel.app/updateToy/${_id}`, {
       method: "PUT",
       headers: {
         "content-type": "application/json",
@@ -151,46 +114,81 @@ const MyToys = () => {
       });
     console.log(updatedToyInfo);
   };
+
+  const handleSort = (condition) => {
+    fetch(`https://toy-house-server-khaki.vercel.app/sort/${condition}`)
+      .then((res) => res.json())
+      .then((data) => setMyToys(data));
+  };
   return (
     <div>
-      <div className="w-8/12 mx-auto py-20">
+      <div className="w-10/12 lg:w-8/12 mx-auto py-6 md:py-16 lg:py-20">
+        <div className="flex justify-center gap-2 md:gap-5 items-center mb-4 md:mb-0 md:py-5">
+          <p className="text-orange-500 text-sm font-semibold">
+            Short by Price:{" "}
+          </p>
+          <div className="flex gap-2 md:gap-3">
+            <div>
+              <input
+                className="mr-1 text-sm md:text-base"
+                type="radio"
+                name="sort"
+                onClick={() => handleSort("highToLow")}
+              />
+              <span className="text-sm md:text-base">High to Low</span>
+            </div>
+            <div>
+              <input
+                className="mr-1 text-sm"
+                type="radio"
+                name="sort"
+                onClick={() => handleSort("lowToHigh")}
+              />
+              <span className="text-sm md:text-base">Low to High</span>
+            </div>
+          </div>
+        </div>
         <table className="border w-full">
           <thead className="bg-gray-100 text-gray-800">
             <tr className="border border-gray-100">
-              <th className="border p-2">#</th>
-              <th className="border p-2">Image</th>
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Category</th>
-              <th className="border p-2">Price</th>
-              <th className="border p-2">Qty</th>
-              <th className="border p-2">Update</th>
-              <th className="border p-2">Delete</th>
+              <th className="border text-[12px] md:text-base p-2">#</th>
+              <th className="border text-[12px] md:text-base p-2">Image</th>
+              <th className="border text-[12px] md:text-base p-2">Name</th>
+              <th className="border text-[12px] md:text-base hidden md:block p-2">
+                Category
+              </th>
+              <th className="border text-[12px] md:text-base p-2">Price</th>
+              <th className="border text-[12px] md:text-base p-2">Qty</th>
+              <th className="border text-[12px] md:text-base p-2">Update</th>
+              <th className="border text-[12px] md:text-base p-2">Delete</th>
             </tr>
           </thead>
           <tbody>
             {myToys.map((myToy, index) => (
               <tr className="border" key={myToy._id}>
-                <th className=" border2p-2 text-center text-gray-700">
+                <th className=" border-r p-2 text-center text-gray-700">
                   {index + 1}
                 </th>
                 <td className="p-2">
                   <img
-                    className="w-12 h-12 mx-auto"
+                    className="w-8 md:w-12 h-8 md:h-12 mx-auto"
                     src={myToy.photoUrl}
                     alt=""
                   />
                 </td>
-                <td className="p-2 text-gray-700">{myToy.toyTitle}</td>
-                <td className="p-2 text-center text-gray-700">
+                <td className="p-2 text-[10px] md:text-base text-gray-700">
+                  {myToy.toyTitle}
+                </td>
+                <td className="p-2 text-[10px] md:text-base hidden md:block text-center text-gray-700">
                   {myToy.category}
                 </td>
-                <td className="p-2 text-center text-gray-700">
+                <td className="p-2 text-[10px] md:text-base text-center text-gray-700">
                   ${myToy.price}
                 </td>
-                <td className="p-2 text-center text-gray-700">
+                <td className="p-2 text-[10px] md:text-base text-center text-gray-700">
                   {myToy.quantity}
                 </td>
-                <td className="p-2 text-center text-gray-600">
+                <td className="p-2 text-[10px] md:text-base text-center text-gray-600">
                   <label
                     onClick={() => setToyInfo(myToy)}
                     htmlFor="updateModal"
