@@ -17,6 +17,6 @@
   {
     "id": 4,
     "question": "What is MongoDB aggregate and how does it work?",
-    "answer": "Custom Hook is a JavaScript function which we create by ourselves, when we want to share logic between other JavaScript functions. It allows us to reuse some piece of code in several parts of our app. We use custom hook, because, it can be reused easily, which makes the code cleaner and reduces the time to write the code."
+    "answer": "Aggregation is the process of selecting data from a collection in MongoDB. It processes multiple documents and returns computed results. Aggregation operations can be work in two ways: 1. Using Aggregation Pipeline. 2. Using single purpose aggregation methods: db.collection.estimatedDocumentCount(), db.collection.count() and db.collection.distinct()."
   }
 ]
